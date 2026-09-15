@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talenta Muda BLI — Beasiswa BCA</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Open Sans', sans-serif; }
+  
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-pop { animation: pop 0.18s ease-out forwards; }
+</style>
+</head>
+<body class="bg-slate-50 text-[#222222] antialiased min-h-screen flex flex-col selection:bg-sky-200">
+
+  <!-- ================= ANNOUNCEMENT BANNER ================= -->
+  <section class="w-full bg-white border-b border-gray-100 py-2.5 px-4 flex justify-center items-center">
+    <div class="flex items-center gap-2 max-w-4xl text-center">
+      <span class="w-2.5 h-2.5 rounded-full bg-[#A03125] inline-block shrink-0"></span>
+      <span class="text-[#A03125] font-bold text-xs md:text-sm">PERHATIAN</span>
+      <p class="text-xs md:text-sm text-gray-700">
+        BCA tidak memungut biaya apapun selama proses pendaftaran dan seleksi karir berlangsung.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="w-full bg-[#005CAB] py-3.5 px-6 md:px-12 flex items-center justify-between sticky top-0 z-50 shadow-md">
+    <div class="flex items-center gap-6 lg:gap-10">
+      <a href="main.html" class="flex items-center shrink-0">
+        <img src="/logo.png" alt="Logo BCA" class="h-10 md:h-12 w-auto object-contain" onerror="this.src='https://placehold.co/120x40/005cab/ffffff?text=BCA'" />
+      </a>
+      <div class="hidden lg:flex items-center gap-5 text-white font-semibold text-sm">
+        <a href="main.html#home" class="hover:text-cyan-300 transition-colors">Home</a>
+        <a href="main.html#keseharian" class="hover:text-cyan-300 transition-colors">Keseharian Kami</a>
+        <a href="main.html#karir" class="hover:text-cyan-300 transition-colors">Karir</a>
+        <a href="main.html#magang" class="hover:text-cyan-300 transition-colors">Magang Bakti</a>
+        <a href="main.html#beasiswa" class="text-cyan-300 border-b-2 border-cyan-300 pb-0.5">Beasiswa BCA</a>
+        <a href="main.html#artikel" class="hover:text-cyan-300 transition-colors">Info & Artikel</a>
+      </div>
+    </div>
+    <button class="bg-white text-[#005CAB] font-bold px-6 py-2 rounded-full hover:bg-cyan-50 text-sm transition-all shadow-md">
+      Masuk
+    </button>
+  </nav>
+
+  <!-- ================= HERO SECTION (DARK BLUE MODE / BIRU BCA) ================= -->
+  <section class="relative bg-gradient-to-br from-[#005CAB] via-[#004A8B] to-[#00285E] text-white pt-14 md:pt-20 pb-32 md:pb-40 px-6 md:px-16 overflow-hidden">
+    <div class="absolute top-[-50px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#1FC2E8]/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-3xl mx-auto flex flex-col items-center text-center relative z-10">
+      <h1 class="text-2xl sm:text-4xl md:text-2xl lg:text-4xl font-bold leading-tight tracking-tight mb-4 max-w-2xl">
+        Kenalan Langsung dengan Talenta Muda BLI
+      </h1>
+
+      <p class="text-sm md:text-base font-normal text-blue-50/90 leading-relaxed max-w-xl mb-5">
+        Penasaran serunya kuliah di PPBP/PPTI & tinggal di Rumah Talenta BCA (RTB)? Tanyakan langsung semua pengalaman ke para Awardee aktif!
+      </p>
+
+      <div>
+        <button id="scrollBtn" class="bg-[#1FC2E8] hover:bg-white text-[#00285E] font-extrabold text-sm px-8 py-3.5 rounded-full transition-all duration-300 shadow-[0_0_25px_rgba(31,194,232,0.4)] hover:shadow-[0_0_35px_rgba(31,194,232,0.7)] hover:-translate-y-0.5 flex items-center gap-2.5">
+          <span>Cari Talenta Muda</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none z-20">
+      <svg class="relative block w-full h-[60px] md:h-[90px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" preserveAspectRatio="none">
+        <path fill="#F8FAFC" fill-opacity="1" d="M0,96L60,101.3C120,107,240,117,360,112C480,107,600,85,720,85.3C840,85,960,107,1080,112C1200,117,1320,107,1380,101.3L1440,96L1440,160L1380,160C1320,160,1200,160,1080,160C240,160,120,160,60,160L0,160Z"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="max-w-6xl mx-auto px-6 py-8 md:py-12 flex-1 w-full">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 border-b border-gray-200/80 pb-6">
+      <div class="flex flex-col gap-1">
+        <h2 class="text-2xl md:text-3xl font-bold text-[#005CAB]">Mari Berkenalan dengan Talenta Muda</h2>
+        <p class="text-xs md:text-sm text-gray-600">Terhubung lebih dekat dan tanya seputar pengalaman Beasiswa BCA</p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2.5">
+        <div class="bg-white border border-gray-200 p-1 rounded-full shadow-xs flex items-center gap-1">
+          <button class="filter-btn active font-bold text-xs px-4 py-2 rounded-full transition-all bg-[#005CAB] text-white" data-f="all">Semua</button>
+          <button class="filter-btn font-bold text-xs px-4 py-2 rounded-full transition-all text-gray-600 hover:text-[#005CAB]" data-f="PPBP">PPBP</button>
+          <button class="filter-btn font-bold text-xs px-4 py-2 rounded-full transition-all text-gray-600 hover:text-[#005CAB]" data-f="PPTI">PPTI</button>
+        </div>
+
+        <button id="historyBtn" class="bg-sky-50 hover:bg-sky-100 text-[#005CAB] border border-sky-200 font-bold text-xs px-4 py-2.5 rounded-full transition-all flex items-center gap-2 shadow-xs">
+          <span>💬 Riwayat Chat</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+  </main>
+
+  <!-- ================= PROFILE MODAL ================= -->
+  <div id="profileOverlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div id="profileModal" class="bg-white rounded-3xl w-full max-w-lg max-h-[90vh] overflow-y-auto relative shadow-2xl border border-sky-100"></div>
+  </div>
+
+  <!-- ================= CHAT DRAWER ================= -->
+  <div id="drawerOverlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden">
+    <div id="drawer" class="fixed top-0 right-0 w-full sm:w-[420px] h-full bg-white shadow-2xl flex flex-col transition-transform duration-300 transform translate-x-full rounded-l-3xl overflow-hidden"></div>
+  </div>
+
+  <!-- ================= FULLSCREEN EMAIL NOTIFICATION PREVIEW ================= -->
+  <div id="emailModalOverlay" class="fixed inset-0 bg-white z-[999] hidden flex-col w-screen h-screen overflow-hidden">
+    
+    <!-- Top Bar Simulator -->
+    <div class="bg-[#F6F8FC] border-b border-gray-200 px-6 py-3 flex items-center justify-between text-xs text-gray-700 shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-1.5">
+          <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+        </div>
+        <span class="font-bold text-gray-800 text-sm">Inbox Gmail — Notifikasi Pesan Masuk</span>
+      </div>
+      <button onclick="closeEmailModalOnly()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold px-4 py-1.5 rounded-full text-xs transition-colors flex items-center gap-1">
+        <span>Tutup Email</span>
+        <span class="text-sm font-extrabold">&times;</span>
+      </button>
+    </div>
+
+    <!-- Gmail Header Section -->
+    <div class="px-6 md:px-12 py-5 border-b border-gray-100 bg-white shrink-0 max-w-5xl mx-auto w-full">
+      <h3 id="emailSubject" class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+        Continue chatting to Lovera at BCA Learning Institute
+      </h3>
+      <div class="flex items-center justify-between text-xs text-gray-500">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[#005CAB] text-white font-bold flex items-center justify-center text-sm shadow-sm">
+            BCA
+          </div>
+          <div>
+            <p class="font-bold text-gray-800 text-sm">Beasiswa BCA Ambassador Platform <span class="font-normal text-gray-500 text-xs">&lt;noreply@beasiswabca.co.id&gt;</span></p>
+            <p class="text-xs text-gray-500">kepada saya</p>
+          </div>
+        </div>
+        <span id="emailTimestamp" class="text-xs text-gray-400 font-medium">Hari ini, 10.30</span>
+      </div>
+    </div>
+
+    <!-- Email Body Content -->
+    <div class="flex-1 overflow-y-auto bg-[#F3F4F6] p-4 md:p-10 flex justify-center items-start">
+      <div class="max-w-xl w-full bg-white rounded-2xl shadow-md border border-gray-200/80 p-6 md:p-10 flex flex-col items-center text-center my-auto">
+        
+        <!-- LOGO BCA BESAR TERLETAK DI ATAS TERPUSAT (CENTER) -->
+        <div class="mb-6 w-full flex justify-center">
+          <img src="/bca-blue.png" alt="Logo BCA" class="h-16 md:h-20 w-auto object-contain" onerror="this.src='https://placehold.co/240x80/005cab/ffffff?text=BCA'" />
+        </div>
+
+        <!-- Main Email Title -->
+        <h2 class="text-xl md:text-2xl font-extrabold text-gray-900 mb-6 leading-snug">
+          Continue chatting to <span id="emailTalentName" class="text-[#005CAB]">Talenta Muda</span> at<br>
+          BCA Learning Institute
+        </h2>
+
+        <p class="text-xs font-semibold text-gray-500 mb-4">Hi Penanya,</p>
+
+        <!-- Message Box -->
+        <div class="w-full bg-slate-50 border border-slate-200/80 rounded-xl p-4 md:p-5 mb-6 text-left flex gap-3.5 items-start shadow-xs">
+          <div id="emailAvatar" class="w-11 h-11 rounded-full bg-[#005CAB] text-white font-bold flex items-center justify-center text-xs shrink-0 overflow-hidden shadow-xs">
+            TM
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-xs font-bold text-gray-800 mb-1"><span id="emailSenderName">Talenta</span> has sent you a message:</p>
+            <p id="emailMessageText" class="text-xs md:text-sm text-gray-700 leading-relaxed italic bg-white p-3 rounded-xl border border-gray-100 shadow-2xs">
+              "Hi! Makasih ya sudah bertanya seputar Beasiswa BCA..."
+            </p>
+            <span id="emailMsgDate" class="text-[10px] text-gray-400 mt-1.5 block font-medium">14 September 2026</span>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <button onclick="confirmAndShowChat()" class="w-full bg-[#005CAB] hover:bg-[#003B7A] text-white font-extrabold text-xs md:text-sm py-3.5 px-6 rounded-xl shadow-md transition-all mb-5">
+          Continue chatting
+        </button>
+
+        <!-- Support Info -->
+        <p class="text-xs text-gray-500 mb-2">
+          If you can't see the button, <a href="#" onclick="confirmAndShowChat(); return false;" class="text-[#005CAB] font-semibold underline">click here</a> to continue chatting.
+        </p>
+        <p class="text-xs text-gray-500 mb-6">
+          If you have any difficulty accessing the message, please <a href="#" class="text-[#005CAB] font-semibold underline">contact support</a>.
+        </p>
+
+        <!-- Footer Sign-off -->
+        <div class="text-xs text-gray-600 font-medium">
+          <p>Best wishes,</p>
+          <p class="font-bold text-gray-800 text-sm mt-0.5">The Beasiswa BCA Ambassador Team 😊</p>
+        </div>
+
+        <p class="text-[10px] text-gray-400 text-center mt-8 border-t border-gray-100 pt-4 w-full">
+          Sent on behalf of BCA Learning Institute Sentul by The Beasiswa BCA Ambassador Platform
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= HISTORY MODAL ================= -->
+  <div id="historyOverlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl w-full max-w-md max-h-[80vh] flex flex-col overflow-hidden shadow-2xl border border-sky-100">
+      <div class="p-5 bg-gradient-to-r from-[#005CAB] to-[#0284C7] text-white flex justify-between items-center">
+        <h3 class="font-bold text-base">Riwayat Chat Kamu</h3>
+        <button onclick="closeHistory()" class="w-7 h-7 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center font-bold text-sm transition-colors">&times;</button>
+      </div>
+      <div id="historyList" class="flex-1 overflow-y-auto divide-y divide-gray-100"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#005CAB] text-white text-xs md:text-sm font-semibold px-6 py-3 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300 z-50">
+    Pesan terkirim! Notifikasi balasan akan masuk ke email kamu...
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-gray-100 border-t border-gray-200 py-10 px-6 md:px-16 text-gray-700 text-xs mt-auto">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-8 pb-8">
+      <div class="flex flex-col gap-3 max-w-md">
+        <a href="#home" class="flex items-center shrink-0 w-fit">
+          <img 
+            src="/bca-blue.png" 
+            alt="Logo BCA" 
+            class="h-12 w-auto object-contain"
+            onerror="this.src='https://placehold.co/120x40/005cab/ffffff?text=BCA'" 
+          />
+        </a>
+        <p class="text-gray-600 leading-relaxed">
+          Terima kasih atas kunjungan Anda pada situs BCA. Kami sangat menghargai komentar atau saran Anda agar kami dapat memberikan pelayanan yang lebih baik.
+        </p>
+        <p class="font-semibold text-gray-800">mail recruitment@bca.co.id</p>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="font-bold text-gray-800">Terhubung Bersama Kami</p>
+        <div class="flex items-center gap-4 text-lg">
+          <span class="cursor-pointer hover:text-[#005CAB]">🌐</span>
+          <span class="cursor-pointer hover:text-[#005CAB]">💼</span>
+          <span class="cursor-pointer hover:text-[#005CAB]">📸</span>
+          <span class="cursor-pointer hover:text-[#005CAB]">🐦</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto pt-6 border-t border-gray-300 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+      <div class="flex flex-col gap-0.5 text-[11px] text-gray-500">
+        <p class="font-bold text-gray-700">BCA berizin dan diawasi oleh Otoritas Jasa Keuangan & Bank Indonesia</p>
+        <p>BCA merupakan peserta penjaminan LPS. Maksimum nilai simpanan yang dijamin LPS per Nasabah per Bank adalah Rp2 miliar.</p>
+      </div>
+      <p class="text-gray-500 text-xs shrink-0">© 2026 BCA</p>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    const featured = [
+      { id:1, name:"Angelyn Felishia", nickname:"Angel", program:"PPTI", batch:"PPTI 25", tags:["💻 Coding","🎮 Gaming"], blurb:"Hi! Aku Angel, dulunya aku gak ngerti coding tapi semenjak masuk di PPTI jadi bisa deh! Awalnya takut banget, tapi ternyata seru kalau udah kebiasa.", grad:"linear-gradient(135deg,#0284C7,#005CAB)", photo:null },
+      { id:2, name:"Audrelia Kurniawan", nickname:"Audrei", program:"PPBP", batch:"PPBP 9", tags:["👩🏻‍🍳 Cooking","📚 Baca Buku"], blurb:"Halo semuanya! Salam kenal aku Audrei! Kalau kalian mau tanya-tanya mengenai kegiatan perkuliahan soal PPBP, tanya aja yaa, aku senang banget cerita-cerita.", grad:"linear-gradient(135deg,#005CAB,#00285E)", photo:null },
+      { id:3, name:"Lauretta Virginia Irawan", nickname:"Retta", program:"PPBP", batch:"PPBP 9", tags:["💃 Dance","🎉 Eskul"], blurb:"Halo semuanya aku Retta! Aku suka banget dance dan di sini aku juga ikutan eskul dance, pokoknya di sini itu seru banget gak cuma kuliah tapi ada banyak aktivitas seru lainnya.", grad:"linear-gradient(135deg,#0369A1,#005CAB)", photo:null },
+      { id:4, name:"Frolencia Huang", nickname:"Flo", program:"PPTI", batch:"PPTI 25", tags:["🎨 Desain","📸 Fotografi"], blurb:"Halo aku Flo dari PPTI 25! Aku suka banget ikutan lomba desain poster kampus, seru banget belajar bareng temen-temen sekelas.", grad:"linear-gradient(135deg,#38BDF8,#0284C7)", photo:null },
+      { id:5, name:"Syalomita Sharlen Yap", nickname:"Sharlen", program:"PPTI", batch:"PPTI 24", tags:["🎤 Paduan Suara","📚 Belajar Kelompok"], blurb:"Hai, aku Sharlen dari PPTI 24! Selain kelas, aku aktif di paduan suara kampus, bikin hari-hari kuliah jadi makin berwarna.", grad:"linear-gradient(135deg,#0284C7,#004A8B)", photo:null },
+      { id:6, name:"Kezia Ophelia", nickname:"Kezia", program:"PPBP", batch:"PPBP 10", tags:["🏸 Badminton","📖 Reading"], blurb:"Halo aku Kezia dari PPBP 10! Di sela kuliah aku ikut eskul badminton, lumayan buat refreshing abis pusing tugas.", grad:"linear-gradient(135deg,#005CAB,#00285E)", photo:null },
+      { id:7, name:"Alex Tan", nickname:"Alex", program:"PPBP", batch:"PPBP 10", tags:["⚽ Futsal","🎧 Musik"], blurb:"Yo, aku Alex dari PPBP 10! Aku anak futsal kampus, kalau lagi gak sibuk kuliah biasanya nongkrong sambil dengerin musik bareng temen-temen.", grad:"linear-gradient(135deg,#0369A1,#0284C7)", photo:null },
+      { id:8, name:"Marcella Ashley", nickname:"Marcella", program:"PPTI", batch:"PPTI 23", tags:["🎬 Videografi","☕ Ngopi"], blurb:"Hai aku Marcella dari PPTI 23! Suka banget bikin konten video buat acara kampus, seru liat progress belajar dari semester ke semester.", grad:"linear-gradient(135deg,#38BDF8,#005CAB)", photo:null },
+      { id:9, name:"Marco Winata", nickname:"Marco", program:"PPTI", batch:"PPTI 24", tags:["🎮 Gaming","🏀 Basket"], blurb:"Halo, aku Marco dari PPTI 24! Kalau lagi santai biasanya main basket bareng temen kelas atau mabar bareng anak asrama.", grad:"linear-gradient(135deg,#0284C7,#005CAB)", photo:null },
+      { id:10, name:"Daniel Lim", nickname:"Daniel", program:"PPBP", batch:"PPBP 9", tags:["🏋️ Gym","📈 Diskusi Bisnis"], blurb:"Halo aku Daniel dari PPBP 9! Aku suka nge-gym abis kelas, sekalian ngobrolin studi kasus bisnis bareng temen sekelas.", grad:"linear-gradient(135deg,#005CAB,#00285E)", photo:null },
+      { id:11, name:"Melissa", nickname:"Melissa", program:"PPBP", batch:"PPBP 9", tags:["🎨 Melukis","🌸 Journaling"], blurb:"Hai aku Melissa dari PPBP 9! Selain kuliah aku suka luangin waktu buat melukis, bikin pikiran lebih fresh di tengah padatnya jadwal.", grad:"linear-gradient(135deg,#0369A1,#0284C7)", photo:null },
+      { id:12, name:"Zhu Luigi", nickname:"Luigi", program:"PPTI", batch:"PPTI 25", tags:["🍜 Kuliner","🕹️ Esports"], blurb:"Halo aku Luigi dari PPTI 25! Aku doyan banget wisata kuliner bareng temen sekelas, sama kadang ikutan turnamen esports kampus.", grad:"linear-gradient(135deg,#38BDF8,#005CAB)", photo:null }
+    ];
+
+    const archivedTalents = [
+      { id:101, name:"Farrel Anantama", nickname:"Farrel", program:"PPTI", batch:"PPTI 24", tags:["🎧 Musik"], blurb:"Suka nongkrong bareng temen asrama sambil dengerin musik di sela jadwal kuliah.", grad:"linear-gradient(135deg,#0284C7,#005CAB)", photo:null },
+      { id:102, name:"Bryan Kusuma", nickname:"Bryan", program:"PPBP", batch:"PPBP 9", tags:["🏸 Badminton"], blurb:"Aktif di eskul badminton kampus, seru buat ditanya soal kegiatan non-akademik.", grad:"linear-gradient(135deg,#005CAB,#00285E)", photo:null }
+    ];
+
+    const allTalents = [...featured, ...archivedTalents];
+
+    const messagesState = {
+      1: [
+        {who:"me", text:"Halo kak, aku takut gak bisa ngikutin soalnya belum pernah coding sama sekali. Gimana ya?", time:"Kemarin, 09.14"},
+        {who:"them", text:"Sama! Aku dulu juga zero banget. Tapi di sini diajarin dari basic kok, santai aja, yang penting mau belajar hehe.", time:"Kemarin, 09.20"}
+      ],
+      101: [
+        {who:"me", text:"Kak, laptop yang dikasih ke peserta PPTI itu gimana speknya?", time:"3 hari lalu, 14.05"},
+        {who:"them", text:"Lumayan mumpuni kok buat ngerjain tugas kuliah sehari-hari.", time:"3 hari lalu, 15.40"}
+      ]
+    };
+
+    let activeFilter = "all";
+    let activeId = null;
+    let pendingResponseText = "";
+
+    function initials(name){ return name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase(); }
+
+    function photoHtml(t, sizeClass){
+      if(t.photo) return `<img src="${t.photo}" alt="Foto ${t.name}" class="w-full h-full object-cover">`;
+      return `<div class="${sizeClass}">${initials(t.name)}</div>`;
+    }
+
+    function renderGrid(){
+      const grid = document.getElementById("grid");
+      grid.innerHTML = "";
+      featured
+        .filter(t => activeFilter === "all" || t.program === activeFilter)
+        .forEach(t => {
+          const card = document.createElement("div");
+          card.className = "bg-white border border-gray-200/80 rounded-2xl p-5 flex flex-col sm:flex-row gap-5 items-start hover:shadow-lg hover:border-sky-300 transition-all group";
+          
+          const isPpti = t.program === "PPTI";
+          const badgeTheme = isPpti 
+            ? "bg-gradient-to-r from-sky-50 to-cyan-100 text-[#005CAB] border-sky-300/80" 
+            : "bg-gradient-to-r from-indigo-50 to-blue-100 text-[#00285E] border-indigo-200/80";
+
+          card.innerHTML = `
+            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shrink-0 flex items-center justify-center relative overflow-hidden text-white font-extrabold text-2xl shadow-sm" style="background:${t.grad}">
+              ${photoHtml(t, "avatar-init")}
+              <span class="absolute bottom-2 right-2 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-white"></span>
+            </div>
+            
+            <div class="flex-1 min-w-0 flex flex-col justify-between h-full w-full">
+              <div>
+                <h3 class="font-extrabold text-base md:text-lg text-gray-900 group-hover:text-[#005CAB] transition-colors mb-1.5">${t.name}</h3>
+                
+                <div class="mb-3">
+                  <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border shadow-xs transition-transform duration-200 group-hover:scale-105 ${badgeTheme}">
+                    <span>${t.nickname} - ${t.batch}</span>
+                  </span>
+                </div>
+
+                <div class="flex flex-wrap gap-1.5 mb-3">
+                  ${t.tags.map(tag => `<span class="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full">${tag}</span>`).join("")}
+                </div>
+
+                <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-4">${t.blurb}</p>
+              </div>
+
+              <div class="flex items-center gap-2 pt-2 border-t border-gray-100">
+                <button class="btn-chat bg-[#005CAB] hover:bg-[#003B7A] text-white font-bold text-xs px-4 py-2 rounded-full transition-all shadow-xs flex items-center gap-1.5">
+                  <span>💬 Chat</span>
+                </button>
+                <button class="btn-profile bg-white hover:bg-slate-50 text-gray-700 border border-gray-200 font-bold text-xs px-4 py-2 rounded-full transition-all">
+                  Lihat Profil
+                </button>
+              </div>
+            </div>`;
+            
+          card.querySelector(".btn-chat").onclick = () => openDrawer(t.id);
+          card.querySelector(".btn-profile").onclick = () => openProfile(t.id);
+          grid.appendChild(card);
+        });
+    }
+
+    /* ---- PROFILE MODAL ---- */
+    function openProfile(id){
+      const t = allTalents.find(x => x.id === id);
+      const isPpti = t.program === "PPTI";
+      const badgeTheme = isPpti 
+        ? "bg-gradient-to-r from-sky-50 to-cyan-100 text-[#005CAB] border-sky-300" 
+        : "bg-gradient-to-r from-indigo-50 to-blue-100 text-[#00285E] border-indigo-200";
+
+      const modal = document.getElementById("profileModal");
+      modal.innerHTML = `
+        <div class="h-24 rounded-t-3xl relative p-4" style="background:${t.grad}">
+          <button onclick="closeProfile()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 hover:bg-white/40 text-white font-bold flex items-center justify-center transition-colors">&times;</button>
+        </div>
+        <div class="px-6 pb-6 -mt-10 relative">
+          <div class="w-20 h-20 rounded-2xl border-4 border-white shadow-md flex items-center justify-center text-white font-bold text-2xl overflow-hidden mb-3" style="background:${t.grad}">
+            ${photoHtml(t, "avatar-init")}
+          </div>
+          
+          <h3 class="text-xl font-bold text-gray-900 mb-1.5">${t.name}</h3>
+          
+          <div class="mb-4">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border shadow-xs ${badgeTheme}">
+              <span>${t.nickname} - ${t.batch}</span>
+            </span>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            ${t.tags.map(tag => `<span class="text-xs font-semibold bg-sky-50 text-[#005CAB] px-3 py-1 rounded-full border border-sky-100">${tag}</span>`).join("")}
+          </div>
+          <p class="text-xs md:text-sm text-gray-600 leading-relaxed mb-6">${t.blurb}</p>
+          <button onclick="closeProfile(); openDrawer(${t.id})" class="w-full bg-[#005CAB] hover:bg-[#003B7A] text-white font-bold text-xs py-3 rounded-full transition-all shadow-md">
+            Mulai Chat dengan ${t.nickname}
+          </button>
+        </div>`;
+      document.getElementById("profileOverlay").classList.remove("hidden");
+      document.getElementById("profileOverlay").classList.add("flex");
+    }
+    
+    function closeProfile(){ 
+      document.getElementById("profileOverlay").classList.add("hidden");
+      document.getElementById("profileOverlay").classList.remove("flex");
+    }
+
+    /* ---- CHAT DRAWER ---- */
+    function openDrawer(id){
+      activeId = id;
+      if(!messagesState[id]) messagesState[id] = [];
+      const overlay = document.getElementById("drawerOverlay");
+      const drawer = document.getElementById("drawer");
+      overlay.classList.remove("hidden");
+      setTimeout(() => drawer.classList.remove("translate-x-full"), 10);
+      renderDrawer();
+    }
+
+    function closeDrawer(){ 
+      const overlay = document.getElementById("drawerOverlay");
+      const drawer = document.getElementById("drawer");
+      drawer.classList.add("translate-x-full");
+      setTimeout(() => overlay.classList.add("hidden"), 300);
+    }
+
+    function renderDrawer(){
+      const t = allTalents.find(x => x.id === activeId);
+      if(!t) return;
+      const isArchived = archivedTalents.some(a => a.id === t.id);
+      const msgs = messagesState[activeId] || [];
+      const drawer = document.getElementById("drawer");
+      drawer.innerHTML = `
+        <div class="p-4 bg-gradient-to-r from-[#005CAB] to-[#0284C7] text-white flex items-center justify-between shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center font-bold text-sm text-white border border-white/30 overflow-hidden">
+              ${photoHtml(t, "avatar-init")}
+            </div>
+            <div>
+              <h4 class="font-bold text-sm leading-tight">${t.name}</h4>
+              <span class="text-[10px] text-sky-100">${t.nickname} - ${t.batch} • Awardee Beasiswa BCA</span>
+            </div>
+          </div>
+          <button onclick="closeDrawer()" class="text-white/80 hover:text-white p-1 text-lg font-bold">&times;</button>
+        </div>
+        
+        <div id="drawerBody" class="flex-1 p-4 overflow-y-auto flex flex-col gap-3 bg-slate-50 text-xs md:text-sm">
+          ${isArchived
+            ? `<div class="text-center text-[11px] text-amber-800 bg-amber-50 border border-amber-200 px-3 py-2 rounded-xl my-1 self-center">
+                 ${t.name} sudah tidak tampil di daftar periode ini, tapi riwayat chat kalian tetap tersimpan di sini.
+               </div>`
+            : `<div class="text-center text-[11px] text-gray-500 bg-white border border-gray-200 px-3 py-1.5 rounded-full my-1 self-center">
+                 Pesanmu akan dikirim sebagai notifikasi ke email ${t.nickname}.
+               </div>`
+          }
+
+          ${msgs.map(m => `
+            <div class="flex flex-col ${m.who === 'me' ? 'items-end' : 'items-start'} animate-pop">
+              <div class="p-3 rounded-2xl max-w-[80%] leading-relaxed ${m.who === 'me' ? 'bg-[#005CAB] text-white rounded-tr-none shadow-xs' : 'bg-white text-gray-700 border border-gray-100 rounded-tl-none shadow-xs'}">
+                ${m.text}
+              </div>
+              <span class="text-[10px] text-gray-400 mt-1 px-1">${m.time}</span>
+            </div>
+          `).join("")}
+        </div>
+
+        <div class="p-3 bg-white border-t border-gray-100 flex items-center gap-2">
+          <input type="text" id="msgInput" placeholder="Tulis pesan untuk ${t.nickname}..." class="flex-1 text-xs border border-gray-200 rounded-full px-4 py-2.5 outline-none focus:border-[#005CAB] transition-colors" />
+          <button onclick="sendMessage()" class="bg-[#005CAB] hover:bg-[#003B7A] text-white font-bold text-xs px-4 py-2.5 rounded-full shadow-md transition-all">Kirim</button>
+        </div>`;
+      
+      scrollDrawerToBottom();
+      document.getElementById("msgInput").addEventListener("keydown", (e) => {
+        if(e.key === "Enter") sendMessage();
+      });
+    }
+
+    function scrollDrawerToBottom(){
+      const body = document.getElementById("drawerBody");
+      if(body) body.scrollTop = body.scrollHeight;
+    }
+
+    function nowTime(){
+      const d = new Date();
+      return "Baru saja, " + d.getHours().toString().padStart(2,"0") + "." + d.getMinutes().toString().padStart(2,"0");
+    }
+
+    /* ---- USER SEND MESSAGE -> TOAST -> WAIT 5 SEC -> SHOW EMAIL ---- */
+    function sendMessage(){
+      const input = document.getElementById("msgInput");
+      const text = input.value.trim();
+      if(!text) return;
+
+      if(!messagesState[activeId]) messagesState[activeId] = [];
+      
+      messagesState[activeId].push({who:"me", text, time: nowTime()});
+      input.value = "";
+      renderDrawer();
+      
+      showToast("Pesan terkirim! Notifikasi balasan akan masuk ke email kamu...");
+
+      const t = allTalents.find(x => x.id === activeId);
+      
+      pendingResponseText = `Hi! Makasih pertanyaannya ya! Aku ${t.nickname}, seneng banget bisa bantu kamu seputar Beasiswa BCA.`;
+      const emailResponseText = `${pendingResponseText} (Terkait: "${text}")`;
+
+      setTimeout(() => {
+        openEmailModal(t, emailResponseText);
+      }, 5000);
+    }
+
+    /* ---- FULLSCREEN EMAIL PREVIEW LOGIC ---- */
+    function openEmailModal(talent, responseMessage){
+      document.getElementById("emailSubject").textContent = `Continue chatting to ${talent.nickname} at BCA Learning Institute`;
+      document.getElementById("emailTalentName").textContent = talent.name;
+      document.getElementById("emailSenderName").textContent = talent.nickname;
+      document.getElementById("emailMessageText").textContent = `"${responseMessage}"`;
+      
+      const avatarEl = document.getElementById("emailAvatar");
+      avatarEl.style.background = talent.grad;
+      avatarEl.innerHTML = photoHtml(talent, "avatar-init");
+
+      const d = new Date();
+      document.getElementById("emailMsgDate").textContent = `${d.getDate()} September 2026`;
+      document.getElementById("emailTimestamp").textContent = `Hari ini, ${d.getHours().toString().padStart(2,"0")}.${d.getMinutes().toString().padStart(2,"0")}`;
+
+      const modal = document.getElementById("emailModalOverlay");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function confirmAndShowChat(){
+      closeEmailModalOnly();
+      
+      if(pendingResponseText && activeId){
+        messagesState[activeId].push({
+          who: "them",
+          text: pendingResponseText,
+          time: nowTime()
+        });
+        pendingResponseText = "";
+      }
+
+      renderDrawer();
+      openDrawer(activeId);
+    }
+
+    function closeEmailModalOnly(){
+      const modal = document.getElementById("emailModalOverlay");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function showToast(msg){
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.remove("opacity-0", "pointer-events-none");
+      setTimeout(() => toast.classList.add("opacity-0", "pointer-events-none"), 3500);
+    }
+
+    /* ---- HISTORY LOGIC ---- */
+    function openHistory(){
+      renderHistory();
+      document.getElementById("historyOverlay").classList.remove("hidden");
+      document.getElementById("historyOverlay").classList.add("flex");
+    }
+
+    function closeHistory(){
+      document.getElementById("historyOverlay").classList.add("hidden");
+      document.getElementById("historyOverlay").classList.remove("flex");
+    }
+
+    function renderHistory(){
+      const listEl = document.getElementById("historyList");
+      const convoIds = Object.keys(messagesState).filter(id => messagesState[id].length > 0);
+      
+      if(convoIds.length === 0){
+        listEl.innerHTML = `<div class="p-8 text-center text-xs text-gray-500">Belum ada percakapan. Mulai chat dengan salah satu Talenta Muda di atas.</div>`;
+        return;
+      }
+      
+      listEl.innerHTML = convoIds.map(id => {
+        const t = allTalents.find(x => x.id == id);
+        const msgs = messagesState[id];
+        const last = msgs[msgs.length - 1];
+        const isArchived = archivedTalents.some(a => a.id == id);
+        
+        return `
+          <div onclick="openFromHistory(${id})" class="p-4 hover:bg-slate-50 cursor-pointer flex items-center gap-3 transition-colors">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-xs text-white overflow-hidden shrink-0" style="background:${t.grad}">
+              ${photoHtml(t, "avatar-init")}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-center mb-0.5">
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <h4 class="font-bold text-xs text-gray-900 truncate">${t.name}</h4>
+                  ${isArchived ? '<span class="text-[9.5px] font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full shrink-0">Periode lalu</span>' : ''}
+                </div>
+                <span class="text-[10px] text-gray-400 shrink-0">${last.time}</span>
+              </div>
+              <p class="text-xs text-gray-500 truncate">${last.who === 'me' ? 'Kamu: ' : ''}${last.text}</p>
+            </div>
+          </div>`;
+      }).join("");
+    }
+
+    function openFromHistory(id){ 
+      closeHistory(); 
+      openDrawer(id); 
+    }
+
+    // EVENT LISTENERS
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => {
+          b.classList.remove("bg-[#005CAB]", "text-white");
+          b.classList.add("text-gray-600");
+        });
+        btn.classList.add("bg-[#005CAB]", "text-white");
+        btn.classList.remove("text-gray-600");
+        activeFilter = btn.dataset.f;
+        renderGrid();
+      });
+    });
+
+    document.getElementById("historyBtn").addEventListener("click", openHistory);
+    document.getElementById("historyOverlay").addEventListener("click", (e) => {
+      if(e.target.id === "historyOverlay") closeHistory();
+    });
+    document.getElementById("drawerOverlay").addEventListener("click", (e) => {
+      if(e.target.id === "drawerOverlay") closeDrawer();
+    });
+    document.getElementById("profileOverlay").addEventListener("click", (e) => {
+      if(e.target.id === "profileOverlay") closeProfile();
+    });
+    document.getElementById("scrollBtn").addEventListener("click", () => {
+      document.getElementById("grid").scrollIntoView({behavior:"smooth", block:"start"});
+    });
+
+    renderGrid();
+  </script>
+</body>
+</html>
