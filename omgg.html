@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Tour 360° — BCA Learning Institute & Rumah Talenta BCA</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+<style>
+  body { font-family: 'Open Sans', sans-serif; }
+  
+  /* MAP SCENE TRANSITION */
+  .map-scene {
+    transition: transform 1.1s cubic-bezier(.3,.7,.3,1), opacity .8s ease;
+    transform-origin: 50% 50%;
+  }
+  .map-scene.zooming { transform: scale(5); opacity: 0; pointer-events: none; }
+
+  /* MIST OVERLAY */
+  .mist-container { position: absolute; inset: 0; pointer-events: none; z-index: 4; overflow: hidden; }
+  .mist-layer {
+    position: absolute; inset: -100px;
+    background: radial-gradient(circle, transparent 40%, rgba(255, 255, 255, 0.45) 85%, rgba(255, 255, 255, 0.8) 100%);
+    filter: blur(25px); mix-blend-mode: screen; opacity: 0.8;
+  }
+  .mist-layer-1 { animation: mistFlow1 12s ease-in-out infinite alternate; }
+  .mist-layer-2 {
+    background: radial-gradient(ellipse at center, transparent 35%, rgba(240, 248, 255, 0.35) 75%, rgba(255, 255, 255, 0.75) 100%);
+    filter: blur(35px); animation: mistFlow2 18s ease-in-out infinite alternate;
+  }
+  @keyframes mistFlow1 {
+    0% { transform: scale(1) translate(0, 0) rotate(0deg); opacity: 0.7; }
+    50% { transform: scale(1.08) translate(-15px, 10px) rotate(1deg); opacity: 0.9; }
+    100% { transform: scale(1.03) translate(12px, -15px) rotate(-1deg); opacity: 0.75; }
+  }
+  @keyframes mistFlow2 {
+    0% { transform: scale(1.05) translate(10px, -10px) rotate(0deg); opacity: 0.6; }
+    50% { transform: scale(0.98) translate(-10px, 15px) rotate(-1.5deg); opacity: 0.85; }
+    100% { transform: scale(1.06) translate(-15px, -8px) rotate(1deg); opacity: 0.65; }
+  }
+
+  /* PIN PULSE */
+  .pin-pulse {
+    position: absolute; bottom: 0; width: 28px; height: 28px;
+    background: rgba(31, 194, 232, 0.45); border-radius: 50%;
+    animation: pulse 1.8s infinite; transform: translateY(50%);
+  }
+  @keyframes pulse {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
+  /* REALISTIC PINPOINT SHAPE */
+  .real-pin {
+    width: 32px;
+    height: 32px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    background: linear-gradient(135deg, #1FC2E8, #005CAB);
+    border: 2.5px solid #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .real-pin::after {
+    content: '';
+    width: 9px;
+    height: 9px;
+    background: #ffffff;
+    border-radius: 50%;
+  }
+
+  /* PINPOINT UNTUK MINI MAP POJOK KANAN */
+  .mini-pin {
+    width: 18px;
+    height: 18px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    border: 1.5px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .tour-scene { transition: opacity .6s ease .2s; }
+  .tour-scene.active { opacity: 1; pointer-events: auto; }
+</style>
+</head>
+<body class="bg-[#00285E] text-white antialiased overflow-hidden w-screen h-screen">
+
+<div class="relative w-full h-full overflow-hidden">
+
+  <!-- ================= MAP SCENE ================= -->
+  <div class="map-scene absolute inset-0 w-full h-full bg-[#00285E]" id="mapScene">
+    
+    <!-- HEADER NAVBAR HOMAGE -->
+    <header class="absolute top-0 left-0 right-0 z-40 bg-[#005CAB]/80 backdrop-blur-md border-b border-white/10 px-6 py-3 flex items-center justify-between shadow-lg">
+      <div class="flex items-center gap-4">
+        <a href="main.html" class="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-xs font-semibold">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          Beranda Utama
+        </a>
+        <span class="text-white/30">|</span>
+        <span class="text-cyan-300 font-bold text-xs uppercase tracking-wider">Virtual Tour 360°</span>
+      </div>
+      <img src="/logo.png" alt="Logo BCA" class="h-7 w-auto object-contain" onerror="this.src='https://placehold.co/100x32/005cab/ffffff?text=BCA'" />
+    </header>
+
+    <!-- WELCOME BANNER DENGAN IKON UNIVERSITAS MITRA -->
+    <div id="welcomeBanner" class="absolute top-16 left-6 right-6 md:left-12 md:right-auto md:max-w-xl z-30 pt-4 transition-all duration-300">
+      <div class="bg-gradient-to-r from-[#005CAB]/95 via-[#004A8B]/90 to-[#00285E]/95 backdrop-blur-xl border border-cyan-400/30 p-5 md:p-6 rounded-3xl shadow-2xl relative overflow-hidden group">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-sky-200/40 rounded-full blur-2xl pointer-events-none"></div>
+        
+        <!-- Tombol X untuk Menutup Banner -->
+        <button id="closeBannerBtn" type="button" class="absolute top-4 right-4 z-50 w-7 h-7 rounded-full bg-[#1FC2E8]/20 hover:bg-[#1FC2E8] text-[#1FC2E8] hover:text-[#00285E] border border-cyan-300/40 font-bold text-sm flex items-center justify-center transition-all duration-200 cursor-pointer shadow-md" title="Tutup Banner">
+          &times;
+        </button>
+
+        <div class="flex flex-col gap-3 relative z-10 pr-6">
+          <div class="flex flex-col gap-1">
+            <h1 class="text-lg md:text-xl font-extrabold text-white leading-tight">
+              Welcome to <span class="text-[#1FC2E8]">BLI & RTB Tour</span>
+            </h1>
+            <p class="text-xs text-blue-100/80 leading-relaxed">
+              Jelajahi kawasan Sentul tempat para penerima Beasiswa BCA (PPBP/PPTI) berkuliah dan bertumbuh secara langsung melalui visualisasi 360° imersif[cite: 4].
+            </p>
+          </div>
+
+          <!-- SECTION ALUR UNIVERSITAS MITRA -->
+          <div class="mt-1 pt-3 border-t border-cyan-400/20 flex flex-col gap-2">
+            <span class="text-[10px] font-bold text-cyan-300 uppercase tracking-wider">
+              🎓 Mitra Perguruan Tinggi Terkemuka
+            </span>
+            
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 border border-white/20 px-2.5 py-1 rounded-xl backdrop-blur-md transition-colors">
+                <img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/8/87/Bina_Nusantara_University_logo.png" 
+                  alt="BINUS" 
+                  class="h-4 w-auto object-contain brightness-200 contrast-200"
+                  onerror="this.src='https://placehold.co/40x16/ffffff/005cab?text=BINUS'"
+                />
+                <span class="text-[11px] font-bold text-white">BINUS</span>
+              </div>
+
+              <div class="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 border border-white/20 px-2.5 py-1 rounded-xl backdrop-blur-md transition-colors">
+                <img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Trisakti_University_logo.png" 
+                  alt="Trisakti" 
+                  class="h-4 w-auto object-contain brightness-200 contrast-200"
+                  onerror="this.src='https://placehold.co/40x16/ffffff/005cab?text=Trisakti'"
+                />
+                <span class="text-[11px] font-bold text-white">Trisakti</span>
+              </div>
+
+              <div class="flex items-center gap-1 text-[#1FC2E8] text-[10px] font-bold bg-[#1FC2E8]/10 border border-[#1FC2E8]/30 px-2.5 py-1 rounded-xl">
+                <span>Dosen Mitra</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-[#1FC2E8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+                <span>Mengajar di BLI</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= FLOATING MAP POJOK KANAN (TANPA TEKS & TANPA JALUR) ================= -->
+    <div id="javaMapWidget" class="absolute top-16 right-6 z-30 pt-4 transition-all duration-300">
+      <div class="bg-gradient-to-b from-[#005CAB]/95 via-[#003B7A]/90 to-[#00285E]/95 backdrop-blur-xl border border-cyan-400/30 p-3 rounded-2xl shadow-2xl w-64 md:w-72 relative overflow-hidden group">
+        
+        <!-- Header Widget & Close Button (X) -->
+        <div class="flex items-center justify-between border-b border-cyan-400/20 pb-1.5 mb-2">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#1FC2E8] animate-pulse"></span>
+            <span class="text-[10px] font-bold text-cyan-200 uppercase tracking-wider">Peta Lokasi Mitra & BLI</span>
+          </div>
+          <button 
+            id="closeJavaMapBtn" 
+            type="button" 
+            class="w-5 h-5 rounded-full bg-white/10 hover:bg-red-500/80 text-white font-bold text-xs flex items-center justify-center transition-colors focus:outline-none"
+            title="Tutup Peta Sebaran"
+          >
+            &times;
+          </button>
+        </div>
+
+        <!-- CONTAINER MAP CLEAN (TANPA TEKS TERRAIN/JALUR) -->
+        <div class="relative w-full h-36 bg-[#001738] rounded-xl border border-white/10 overflow-hidden flex items-center justify-center">
+          
+          <!-- PETA VEKTOR MAP BERSIH (POLOS JABODETABEK) -->
+          <svg class="w-full h-full text-blue-900/40 fill-current" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+            <!-- Landmass silhouette -->
+            <path d="M 0,20 Q 50,15 100,25 Q 150,10 200,30 Q 250,15 300,35 L 300,180 L 0,180 Z" fill="#00224D" />
+            <!-- Water body silhouette (Laut Utara Jakarta) -->
+            <path d="M 0,0 L 300,0 L 300,35 Q 250,15 200,30 Q 150,10 100,25 Q 50,15 0,20 Z" fill="#000F29" />
+          </svg>
+
+          <!-- PINPOINT 1: UNIVERSITAS MITRA (JAKARTA) -->
+          <div class="absolute left-[45%] top-[32%] flex flex-col items-center group/pin cursor-pointer" title="Universitas Mitra (Jakarta)">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#1FC2E8] animate-ping absolute"></span>
+            <div class="mini-pin bg-[#005CAB] relative z-10 flex items-center justify-center">
+              <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
+            </div>
+            <!-- Tooltip Hover -->
+            <div class="absolute bottom-5 whitespace-nowrap bg-black/90 text-cyan-300 text-[9px] font-bold px-2 py-0.5 rounded border border-cyan-400/40 opacity-0 group-hover/pin:opacity-100 transition-opacity pointer-events-none shadow-lg">
+              🎓 Universitas Mitra (Jakarta)
+            </div>
+          </div>
+
+          <!-- PINPOINT 2: BCA LEARNING INSTITUTE (SENTUL BOGOR) -->
+          <div class="absolute left-[47%] top-[72%] flex flex-col items-center group/pin cursor-pointer" title="BCA Learning Institute (Sentul Bogor)">
+            <span class="w-3 h-3 rounded-full bg-red-400 animate-ping absolute"></span>
+            <div class="mini-pin bg-red-600 relative z-10 flex items-center justify-center">
+              <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
+            </div>
+            <!-- Tooltip Hover -->
+            <div class="absolute top-5 whitespace-nowrap bg-black/90 text-red-300 text-[9px] font-bold px-2 py-0.5 rounded border border-red-400/40 opacity-0 group-hover/pin:opacity-100 transition-opacity pointer-events-none shadow-lg">
+              📍 BCA Learning Institute (Bogor)
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CONTROLS & HUD -->
+    <div class="absolute bottom-24 right-6 z-30 flex flex-col gap-2">
+      <button id="zoomIn" class="w-10 h-10 rounded-xl bg-[#005CAB]/80 hover:bg-[#005CAB] border border-cyan-400/30 text-white font-bold backdrop-blur-md shadow-lg transition-all flex items-center justify-center" title="Zoom In">+</button>
+      <button id="zoomOut" class="w-10 h-10 rounded-xl bg-[#005CAB]/80 hover:bg-[#005CAB] border border-cyan-400/30 text-white font-bold backdrop-blur-md shadow-lg transition-all flex items-center justify-center" title="Zoom Out">−</button>
+      <button id="zoomReset" class="w-10 h-10 rounded-xl bg-[#005CAB]/80 hover:bg-[#005CAB] border border-cyan-400/30 text-white font-bold backdrop-blur-md shadow-lg transition-all flex items-center justify-center text-xs" title="Reset View">⤾</button>
+    </div>
+
+    <!-- MIST BORDER ANIMATION -->
+    <div class="mist-container">
+      <div class="mist-layer mist-layer-1"></div>
+      <div class="mist-layer mist-layer-2"></div>
+    </div>
+
+    <!-- INTERACTIVE MAP VIEWPORT -->
+    <div class="absolute inset-0 w-full h-full overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-full origin-top-left cursor-grab active:cursor-grabbing" id="mapInner">
+        <img class="w-full h-full object-cover object-center pointer-events-none select-none" src="3.png" alt="Interactive Map" draggable="false">
+
+        <!-- MAP PIN 1: BLI -->
+        <div class="absolute flex flex-col items-center cursor-pointer z-20 -translate-x-1/2 -translate-y-full hover:scale-110 transition-transform" style="top:33%; left:58.5%;" id="pinBLI" title="BCA Learning Institute">
+          <div class="pin-pulse"></div>
+          <div class="real-pin"></div>
+        </div>
+
+        <!-- MAP PIN 2: RTB -->
+        <div class="absolute flex flex-col items-center cursor-pointer z-20 -translate-x-1/2 -translate-y-full hover:scale-110 transition-transform" style="top:72.5%; left:30.9%;" id="pinRTB" title="Rumah Talenta BCA">
+          <div class="pin-pulse"></div>
+          <div class="real-pin"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA BUTTON -->
+    <button class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#1FC2E8] to-[#005CAB] hover:from-white hover:to-white hover:text-[#00285E] text-white font-extrabold border border-cyan-300/50 px-8 py-3.5 rounded-full text-xs md:text-sm z-30 shadow-[0_0_25px_rgba(31,194,232,0.5)] hover:shadow-[0_0_35px_rgba(31,194,232,0.8)] hover:-translate-y-0.5 transition-all duration-300" id="startTourBtn">
+      🌐 Buka Virtual Tour 360°
+    </button>
+  </div>
+
+  <!-- ================= TOUR SCENE ================= -->
+  <div class="tour-scene absolute inset-0 opacity-0 pointer-events-none bg-black z-50" id="tourScene">
+    <div id="panorama" class="absolute inset-0 w-full h-full"></div>
+
+    <!-- TOUR TOPBAR -->
+    <div class="absolute top-5 left-6 right-6 flex justify-between items-center z-30">
+      <button class="bg-[#005CAB]/80 hover:bg-[#005CAB] border border-cyan-400/40 text-white font-bold px-5 py-2.5 rounded-full text-xs backdrop-blur-md shadow-lg transition-all flex items-center gap-2" id="backBtn">
+        ← Kembali ke Peta
+      </button>
+
+      <div class="bg-[#005CAB]/80 border border-cyan-400/40 px-5 py-2 rounded-full backdrop-blur-md shadow-lg flex items-center gap-3">
+        <span id="sceneChip" class="text-xs font-extrabold text-cyan-200">BCA Learning Institute — Lobi Utama</span>
+        <button class="w-5 h-5 rounded-full bg-[#1FC2E8] text-[#00285E] font-bold text-[11px] flex items-center justify-center hover:bg-white transition-colors" id="infoBtn" title="Lihat Deskripsi Ruangan">i</button>
+      </div>
+    </div>
+
+    <!-- SCENE SWITCH NAVIGATOR (GROUP BLI) -->
+    <div id="navBLI" class="scene-switch absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-1.5 p-1.5 rounded-full bg-[#005CAB]/80 border border-cyan-400/30 backdrop-blur-md shadow-2xl">
+      <button data-scene="lobi" id="btn-lobi" class="px-5 py-2 rounded-full text-xs font-bold transition-all text-white bg-gradient-to-r from-[#1FC2E8] to-[#005CAB] shadow-md">Lobi BLI</button>
+      <button data-scene="kelas" id="btn-kelas" class="px-5 py-2 rounded-full text-xs font-bold transition-all text-white hover:bg-cyan-500/20">Classroom</button>
+      <button data-scene="dc" id="btn-dc" class="px-5 py-2 rounded-full text-xs font-bold transition-all text-white hover:bg-cyan-500/20">Discussion Room</button>
+    </div>
+
+    <!-- SCENE SWITCH NAVIGATOR (GROUP RTB) -->
+    <div id="navRTB" class="scene-switch absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-1.5 p-1.5 rounded-full bg-[#005CAB]/80 border border-cyan-400/30 backdrop-blur-md shadow-2xl hidden">
+      <button data-scene="plaza" id="btn-plaza" class="px-5 py-2 rounded-full text-xs font-bold transition-all text-white bg-gradient-to-r from-[#1FC2E8] to-[#005CAB] shadow-md">Plaza Outdoor</button>
+      <button data-scene="sergun" id="btn-sergun" class="px-5 py-2 rounded-full text-xs font-bold transition-all text-white hover:bg-cyan-500/20">Ruang Serbaguna</button>
+      <button data-scene="waiting" id="btn-waiting" class="px-5 py-2 rounded-full text-xs font-bold transition-all text-white hover:bg-cyan-500/20">Lorong Tangga</button>
+    </div>
+  </div>
+
+  <!-- DESCRIPTION MODAL POPUP -->
+  <div class="desc-modal fixed inset-0 bg-[#00285E]/40 backdrop-blur-md z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300" id="descModal">
+    <div class="bg-gradient-to-br from-[#005CAB] to-[#00285E] border border-cyan-400/40 w-11/12 max-w-md p-6 rounded-3xl shadow-2xl relative">
+      <button class="absolute top-4 right-4 text-white/70 hover:text-white font-bold text-xl" id="descClose">&times;</button>
+      <h3 class="text-base font-extrabold text-[#1FC2E8] mb-2" id="descTitle">Nama Ruangan</h3>
+      <p class="text-xs text-blue-50/90 leading-relaxed" id="descText">Deskripsi ruangan akan muncul di sini.</p>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+<script>
+// EVENT LISTENER UNTUK MENUTUP BANNER UTAMA (X)
+document.getElementById('closeBannerBtn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  const banner = document.getElementById('welcomeBanner');
+  banner.style.opacity = '0';
+  banner.style.transform = 'translateY(-10px)';
+  setTimeout(() => {
+    banner.style.display = 'none';
+  }, 300);
+});
+
+// EVENT LISTENER UNTUK MENUTUP WIDGET PETA POJOK KANAN (X)
+document.getElementById('closeJavaMapBtn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  const javaMap = document.getElementById('javaMapWidget');
+  javaMap.style.opacity = '0';
+  javaMap.style.transform = 'translateY(-10px)';
+  setTimeout(() => {
+    javaMap.style.display = 'none';
+  }, 300);
+});
+
+const mapScene = document.getElementById("mapScene");
+const tourScene = document.getElementById("tourScene");
+const mapInner = document.getElementById("mapInner");
+
+let scale = 1.35, tx = -230, ty = -150;
+let isDragging = false, startX = 0, startY = 0, startTx = 0, startTy = 0;
+
+function clampPan() {
+  const vp = mapInner.parentElement.getBoundingClientRect();
+  const scaledW = vp.width * scale;
+  const scaledH = vp.height * scale;
+  
+  const minTx = Math.min(0, vp.width - scaledW);
+  const minTy = Math.min(0, vp.height - scaledH);
+  
+  tx = Math.max(minTx, Math.min(0, tx));
+  ty = Math.max(minTy, Math.min(0, ty));
+}
+
+function applyTransform() {
+  clampPan();
+  mapInner.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+}
+
+applyTransform();
+
+mapInner.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  startX = e.clientX; startY = e.clientY; startTx = tx; startTy = ty;
+});
+window.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  tx = startTx + (e.clientX - startX);
+  ty = startTy + (e.clientY - startY);
+  applyTransform();
+});
+window.addEventListener("mouseup", () => { isDragging = false; });
+
+mapInner.parentElement.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  const delta = e.deltaY < 0 ? 0.15 : -0.15;
+  scale = Math.min(3, Math.max(1, scale + delta));
+  applyTransform();
+}, { passive: false });
+
+document.getElementById("zoomIn").addEventListener("click", () => { scale = Math.min(3, scale + 0.3); applyTransform(); });
+document.getElementById("zoomOut").addEventListener("click", () => { scale = Math.max(1, scale - 0.3); applyTransform(); });
+document.getElementById("zoomReset").addEventListener("click", () => { scale = 1.35; tx = -230; ty = -150; applyTransform(); });
+
+const sceneData = {
+  // SCENES BLI
+  lobi: {
+    name: "BCA Learning Institute — Lobi Utama",
+    desc: "Area penerimaan utama BCA Learning Institute yang megah dan nyaman. Berfungsi sebagai pusat informasi, titik kumpul utama, serta gerbang penyambut bagi seluruh tamu, peserta pelatihan, dan mahasiswa."
+  },
+  kelas: {
+    name: "BCA Learning Institute — Classroom",
+    desc: "Ruang kelas modern yang dirancang khusus untuk mendukung kegiatan perkuliahan mahasiswa program PPTI/PPBP. Ruangan ini dilengkapi dengan fasilitas interaktif, tempat dosen dari universitas mitra hadir secara langsung untuk memberikan materi akademik secara optimal[cite: 4]."
+  },
+  dc: {
+    name: "BCA Learning Institute — Discussion Room",
+    desc: "Area diskusi interaktif yang nyaman dan kondusif, dirancang khusus untuk memfasilitasi mahasiswa dalam berkolaborasi, menyelesaikan proyek kelompok, mengerjakan tugas, serta mengadakan sesi brainstorming."
+  },
+  // SCENES RTB (RUMAH TALENTA BCA)
+  plaza: {
+    name: "Rumah Talenta BCA — Outdoor Plaza",
+    desc: "Area terbuka serbaguna yang dilengkapi dengan tempat duduk amphitheater bertingkat dan kanopi modern. Tempat favorit mahasiswa untuk berkumpul, bersantai, maupun menyelenggarakan acara outdoor di malam hari."
+  },
+  sergun: {
+    name: "Rumah Talenta BCA — Ruang Serbaguna & Dining Area",
+    desc: "Ruangan serbaguna berdesain luas dan bersih yang difungsikan sebagai ruang makan bersama, tempat kumpul santai, serta area kegiatan mahasiswa dengan fasilitas dapur komunal dan pantry pendukung."
+  },
+  waiting: {
+    name: "Rumah Talenta BCA — Lorong Tangga & Waiting Area",
+    desc: "Area transisi berdesain futuristik dengan jendela kaca luas yang menyajikan pemandangan alam perbukitan Sentul. Dilengkapi area duduk santai serta galeri foto dinding kisah perjalanan para mahasiswa."
+  }
+};
+
+let currentScene = "lobi";
+let viewer = null;
+
+function initViewer(initialScene = "lobi") {
+  currentScene = initialScene;
+  viewer = pannellum.viewer('panorama', {
+    default: { firstScene: initialScene, sceneFadeDuration: 800, autoLoad: true, autoRotate: -2 },
+    scenes: {
+      lobi: {
+        title: sceneData.lobi.name,
+        hfov: 110, pitch: 0, yaw: 0,
+        type: "equirectangular",
+        panorama: "Lobi.jpg",
+        hotSpots: []
+      },
+      kelas: {
+        title: sceneData.kelas.name,
+        hfov: 110, pitch: 0, yaw: 0,
+        type: "equirectangular",
+        panorama: "kelas.jpg",
+        hotSpots: []
+      },
+      dc: {
+        title: sceneData.dc.name,
+        hfov: 110, pitch: 0, yaw: 0,
+        type: "equirectangular",
+        panorama: "dc.jpg",
+        hotSpots: []
+      },
+      // PANORAMA RUANGAN RUMAH TALENTA BCA
+      plaza: {
+        title: sceneData.plaza.name,
+        hfov: 110, pitch: 0, yaw: 0,
+        type: "equirectangular",
+        panorama: "Plaza.jpg.jpg",
+        hotSpots: []
+      },
+      sergun: {
+        title: sceneData.sergun.name,
+        hfov: 110, pitch: 0, yaw: 0,
+        type: "equirectangular",
+        panorama: "Sergun.jpg.jpg",
+        hotSpots: []
+      },
+      waiting: {
+        title: sceneData.waiting.name,
+        hfov: 110, pitch: 0, yaw: 0,
+        type: "equirectangular",
+        panorama: "WaitingRoom.jpg",
+        hotSpots: []
+      }
+    }
+  });
+
+  viewer.on('scenechange', function(sceneId) {
+    currentScene = sceneId;
+    document.getElementById('sceneChip').textContent = sceneData[sceneId].name;
+    document.querySelectorAll('.scene-switch button').forEach(b => {
+      const active = b.dataset.scene === sceneId;
+      b.className = active 
+        ? "px-5 py-2 rounded-full text-xs font-bold transition-all text-white bg-gradient-to-r from-[#1FC2E8] to-[#005CAB] shadow-md"
+        : "px-5 py-2 rounded-full text-xs font-bold transition-all text-white hover:bg-cyan-500/20";
+    });
+  });
+}
+
+document.querySelectorAll('.scene-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (viewer) viewer.loadScene(btn.dataset.scene);
+  });
+});
+
+function startTransition(targetLocation = "BLI") {
+  const navBLI = document.getElementById("navBLI");
+  const navRTB = document.getElementById("navRTB");
+
+  if (targetLocation === "BLI") {
+    navBLI.classList.remove("hidden");
+    navRTB.classList.add("hidden");
+  } else {
+    navRTB.classList.remove("hidden");
+    navBLI.classList.add("hidden");
+  }
+
+  const initialScene = targetLocation === "BLI" ? "lobi" : "plaza";
+
+  mapScene.classList.add("zooming");
+  setTimeout(() => {
+    mapScene.style.display = "none";
+    tourScene.classList.add("active");
+    if (!viewer) {
+      initViewer(initialScene);
+    } else {
+      viewer.loadScene(initialScene);
+    }
+  }, 800);
+}
+
+document.getElementById("startTourBtn").addEventListener("click", () => startTransition("BLI"));
+document.getElementById("pinBLI").addEventListener("click", () => startTransition("BLI"));
+document.getElementById("pinRTB").addEventListener("click", () => startTransition("RTB"));
+
+document.getElementById("backBtn").addEventListener("click", () => {
+  tourScene.classList.remove("active");
+  mapScene.style.display = "block";
+  mapScene.classList.remove("zooming");
+});
+
+const descModal = document.getElementById('descModal');
+document.getElementById('infoBtn').addEventListener('click', () => {
+  document.getElementById('descTitle').textContent = sceneData[currentScene].name;
+  document.getElementById('descText').textContent = sceneData[currentScene].desc;
+  descModal.classList.remove('opacity-0', 'pointer-events-none');
+});
+
+document.getElementById('descClose').addEventListener('click', () => {
+  descModal.classList.add('opacity-0', 'pointer-events-none');
+});
+</script>
+</body>
+</html>
