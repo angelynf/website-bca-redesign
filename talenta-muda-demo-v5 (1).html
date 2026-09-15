@@ -31,10 +31,21 @@
 
   <!-- ================= NAVBAR ================= -->
   <nav class="w-full bg-[#005CAB] py-3.5 px-6 md:px-12 flex items-center justify-between sticky top-0 z-50 shadow-md">
-    <div class="flex items-center gap-6 lg:gap-10">
-      <a href="index.html" class="flex items-center shrink-0">
-        <img src="/logo.png" alt="Logo BCA" class="h-10 md:h-12 w-auto object-contain" onerror="this.src='https://placehold.co/120x40/005cab/ffffff?text=BCA'" />
+    <div class="flex items-center gap-4 lg:gap-8">
+      
+      <!-- TOMBOL BACK NAVBAR -->
+      <a href="index.html" class="flex items-center gap-2 text-white/90 hover:text-cyan-300 font-bold text-xs md:text-sm bg-white/10 hover:bg-white/20 px-3.5 py-1.5 rounded-full backdrop-blur-md transition-all border border-white/20">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="hidden sm:inline">Kembali</span>
       </a>
+
+      <!-- LOGO BCA -->
+      <a href="index.html" class="flex items-center shrink-0">
+        <img src="./logo.png" alt="Logo BCA" class="h-9 md:h-11 w-auto object-contain" onerror="this.src='https://placehold.co/120x40/005cab/ffffff?text=BCA'" />
+      </a>
+
       <div class="hidden lg:flex items-center gap-5 text-white font-semibold text-sm">
         <a href="index.html#home" class="hover:text-cyan-300 transition-colors">Home</a>
         <a href="index.html#keseharian" class="hover:text-cyan-300 transition-colors">Keseharian Kami</a>
@@ -44,6 +55,7 @@
         <a href="index.html#artikel" class="hover:text-cyan-300 transition-colors">Info & Artikel</a>
       </div>
     </div>
+    
     <button class="bg-white text-[#005CAB] font-bold px-6 py-2 rounded-full hover:bg-cyan-50 text-sm transition-all shadow-md">
       Masuk
     </button>
@@ -51,6 +63,10 @@
 
   <!-- ================= HERO SECTION (DARK BLUE MODE / BIRU BCA) ================= -->
   <section class="relative bg-gradient-to-br from-[#005CAB] via-[#004A8B] to-[#00285E] text-white pt-14 md:pt-20 pb-32 md:pb-40 px-6 md:px-16 overflow-hidden">
+    
+    <!-- FLOATING BACK BUTTON HERO -->
+
+
     <div class="absolute top-[-50px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#1FC2E8]/15 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="max-w-3xl mx-auto flex flex-col items-center text-center relative z-10">
@@ -157,7 +173,7 @@
         
         <!-- LOGO BCA BESAR TERLETAK DI ATAS TERPUSAT (CENTER) -->
         <div class="mb-6 w-full flex justify-center">
-          <img src="/bca-blue.png" alt="Logo BCA" class="h-16 md:h-20 w-auto object-contain" onerror="this.src='https://placehold.co/240x80/005cab/ffffff?text=BCA'" />
+          <img src="./bca-blue.png" alt="Logo BCA" class="h-16 md:h-20 w-auto object-contain" onerror="this.src='https://placehold.co/240x80/005cab/ffffff?text=BCA'" />
         </div>
 
         <!-- Main Email Title -->
@@ -230,9 +246,9 @@
   <footer class="bg-gray-100 border-t border-gray-200 py-10 px-6 md:px-16 text-gray-700 text-xs mt-auto">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-8 pb-8">
       <div class="flex flex-col gap-3 max-w-md">
-        <a href="#home" class="flex items-center shrink-0 w-fit">
+        <a href="index.html" class="flex items-center shrink-0 w-fit">
           <img 
-            src="/bca-blue.png" 
+            src="./bca-blue.png" 
             alt="Logo BCA" 
             class="h-12 w-auto object-contain"
             onerror="this.src='https://placehold.co/120x40/005cab/ffffff?text=BCA'" 

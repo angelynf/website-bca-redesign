@@ -94,7 +94,7 @@
         <span class="text-white/30">|</span>
         <span class="text-cyan-300 font-bold text-xs uppercase tracking-wider">Virtual Tour 360°</span>
       </div>
-      <img src="/logo.png" alt="Logo BCA" class="h-7 w-auto object-contain" onerror="this.src='https://placehold.co/100x32/005cab/ffffff?text=BCA'" />
+      <img src="./logo.png" alt="Logo BCA" class="h-7 w-auto object-contain" onerror="this.src='https://placehold.co/100x32/005cab/ffffff?text=BCA'" />
     </header>
 
     <!-- WELCOME BANNER DENGAN TOMBOL CLOSE (X) -->
@@ -136,7 +136,7 @@
     <!-- INTERACTIVE MAP VIEWPORT -->
     <div class="absolute inset-0 w-full h-full overflow-hidden">
       <div class="absolute top-0 left-0 w-full h-full origin-top-left cursor-grab active:cursor-grabbing" id="mapInner">
-        <img class="w-full h-full object-cover object-center pointer-events-none select-none" src="3.png" alt="Interactive Map" draggable="false">
+        <img class="w-full h-full object-cover object-center pointer-events-none select-none" src="./3.png" alt="Interactive Map" draggable="false">
 
         <!-- MAP PIN 1: BLI -->
         <div class="absolute flex flex-col items-center cursor-pointer z-20 -translate-x-1/2 -translate-y-full hover:scale-110 transition-transform" style="top:33%; left:58.5%;" id="pinBLI" title="BCA Learning Institute">
@@ -303,21 +303,21 @@ function initViewer(initialScene = "lobi") {
         title: sceneData.lobi.name,
         hfov: 110, pitch: 0, yaw: 0,
         type: "equirectangular",
-        panorama: "Lobi.jpg",
+        panorama: "./Lobi.jpg",
         hotSpots: []
       },
       kelas: {
         title: sceneData.kelas.name,
         hfov: 110, pitch: 0, yaw: 0,
         type: "equirectangular",
-        panorama: "kelas.jpg",
+        panorama: "./kelas.jpg",
         hotSpots: []
       },
       dc: {
         title: sceneData.dc.name,
         hfov: 110, pitch: 0, yaw: 0,
         type: "equirectangular",
-        panorama: "dc.jpg",
+        panorama: "./dc.jpg",
         hotSpots: []
       },
       // PANORAMA RUANGAN RUMAH TALENTA BCA
@@ -325,21 +325,21 @@ function initViewer(initialScene = "lobi") {
         title: sceneData.plaza.name,
         hfov: 110, pitch: 0, yaw: 0,
         type: "equirectangular",
-        panorama: "Plaza.jpg.jpeg",
+        panorama: "./Plaza.jpg.jpeg",
         hotSpots: []
       },
       sergun: {
         title: sceneData.sergun.name,
         hfov: 110, pitch: 0, yaw: 0,
         type: "equirectangular",
-        panorama: "Sergun.jpg.jpeg",
+        panorama: "./Sergun.jpg.jpeg",
         hotSpots: []
       },
       waiting: {
         title: sceneData.waiting.name,
         hfov: 110, pitch: 0, yaw: 0,
         type: "equirectangular",
-        panorama: "WaitingRoom.jpg",
+        panorama: "./WaitingRoom.jpg",
         hotSpots: []
       }
     }
